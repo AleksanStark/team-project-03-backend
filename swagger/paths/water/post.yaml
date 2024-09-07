@@ -1,0 +1,56 @@
+tags:
+  - water
+summary: Add water
+operationId: addWater
+description: 'Add water to user intake with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json::
+      schema:
+        type: object
+        required:
+          - volume
+          - date
+          - userId
+        properties:
+          date:
+            description: 'Date of water intake record'
+            type: string
+            example: 2024-05-08T16:12:14
+          volume:
+            description: 'Volume of water intake record'
+            type: number
+            example: 500
+          userId:
+            description: 'Id of a user who this water record is belongs to'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          _id:
+            description: 'Id of water log'
+            type: string
+            example: 66b750163beb29c60d215f8c
+responses:
+  '201':
+    description: Added water
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully added water!
+            data:
+              type: object
+              $ref: '../../components/schemas/water.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'

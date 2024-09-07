@@ -1,0 +1,41 @@
+tags:
+  - user
+summary: Get info about user
+operationId: getUserInfoById
+description: 'Get info about user by his identification'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: string
+      example: 66b750163beb29c60d215f8c
+responses:
+  '200':
+    description: Successfully found info about user with id 66b750163beb29c60d215f8c
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found info about user with id 66b750163beb29c60d215f8c
+            data:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
+                  $ref: '../../../../components/schemas/user.yaml'
+  '404':
+    $ref: '../../../../components/responses/404.yaml'

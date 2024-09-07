@@ -1,0 +1,49 @@
+tags:
+  - auth
+summary: Reset a password
+operationId: resetPassword
+description: 'Reset the password operation description'
+security:
+  - {}
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - token
+          - password
+        properties:
+          password:
+            description: "User's new password"
+            type: string
+            example: 'newPassword'
+          token:
+            description: 'Token from email to reset the password'
+            type: string
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4NjkzNTczNiwiZXhwIjoxNjg2OTM5MzM2fQ.WxL6mWQlDrqX5L4s57UyYkqPLJOhLgGD0rf1RqaUVds
+responses:
+  '200':
+    description: Password has been successfully reset!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Password successfully changed!
+            data:
+              type: object
+              $ref: '../../../components/schemas/loggedInObj.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

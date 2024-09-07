@@ -1,0 +1,59 @@
+tags:
+  - user
+summary: Update user
+operationId: patchUser
+description: 'Update a user with payload operation'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: "User's name"
+            type: string
+            example: 'John Doe'
+          email:
+            description: "User's email"
+            type: string
+          gender:
+            description: 'User gender'
+            type: string
+            example: 'woman'
+            enum: ['woman', 'man']
+          photo:
+            description: "User's photo"
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Update a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated user data!
+            data:
+              type: object
+              $ref: ../../../../../components/schemas/user.yaml
+  '404':
+    $ref: '../../../../../components/responses/404.yaml'

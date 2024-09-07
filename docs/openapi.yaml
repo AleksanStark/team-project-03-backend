@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Watertracker
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: Watertracker operations
+tags:
+  - name: user
+    description: User list management
+  - name: auth
+    description: Auth operations
+  - name: water
+    description: Water operations
+  - name: waterRate
+    description: waterRate operations
+
+servers:
+  - url: http://localhost:3000
+  - url: https://team-project-03.onrender.com
+paths:
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/send-reset-email:
+    post:
+      $ref: ../swagger/paths/auth/send-reset-email/post.yaml
+  /auth/reset-pwd:
+    post:
+      $ref: ../swagger/paths/auth/reset-pwd/post.yaml
+  /user/{id}/info:
+    get:
+      $ref: ../swagger/paths/user/{id}/info/get.yaml
+  /user/{id}/info/photo:
+    post:
+      $ref: ../swagger/paths/user/{id}/info/photo/post.yaml
+  /user/{id}/info/update:
+    patch:
+      $ref: ../swagger/paths/user/{id}/info/update/patch.yaml
+  /water:
+    post:
+      $ref: ../swagger/paths/water/post.yaml
+  /water/{id}:
+    patch:
+      $ref: ../swagger/paths/water/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/{id}/delete.yaml
+  /water/daily/{date}:
+    get:
+      $ref: ../swagger/paths/water/daily/{date}/get.yaml
+  /water/monthly/{month}:
+    get:
+      $ref: ../swagger/paths/water/monthly/{month}/get.yaml
+  /water-rate:
+    patch:
+      $ref: ../swagger/paths/waterRate/patch.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

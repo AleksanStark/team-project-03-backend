@@ -1,0 +1,47 @@
+tags:
+  - user
+summary: Upload user photo
+operationId: uploadPhoto
+description: 'Upload a user photo with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          photo:
+            description: "User's photo"
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Upload user photo
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully uploaded photo!
+            data:
+              type: object
+              $ref: ../../../../../components/schemas/user.yaml
+  '404':
+    $ref: ../../../../../components/responses/404.yaml

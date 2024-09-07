@@ -1,0 +1,22 @@
+type: object
+required:
+  - date
+  - volume
+  - userId
+properties:
+  date:
+    description: 'Date of water intake record'
+    type: string
+    example: 2024-05-08T16:12:14.954208
+  volume:
+    description: 'Volume of water intake record'
+    type: number
+    example: 500
+  userId:
+    description: 'Id of a user who this water record is belongs to'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  _id:
+    description: 'Id of water log'
+    type: string
+    example: 66b750163beb29c60d215f8c

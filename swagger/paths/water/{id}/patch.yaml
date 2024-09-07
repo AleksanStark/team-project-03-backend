@@ -1,0 +1,59 @@
+tags:
+  - water
+summary: Update water
+operationId: updateWater
+description: 'Update water with payload operation description'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    application/json::
+      schema:
+        type: object
+        required:
+          - volume
+          - date
+          - userId
+        properties:
+          date:
+            description: 'Date of water intake record'
+            type: string
+            example: 2024-05-08T16:12:14
+          volume:
+            description: 'Volume of water intake record'
+            type: number
+            example: 500
+          userId:
+            description: 'Id of a user who this water record is belongs to'
+            type: string
+            example: 65e4decdd286b30065d54af9
+responses:
+  '200':
+    description: Updated water
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated water data!
+            data:
+              type: object
+              $ref: '../../../components/schemas/water.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

@@ -1,0 +1,10 @@
+{
+  "web": {
+    "client_id": "273678042827-tc7jst83e51r24h8rd5t9vo4duo3k8oa.apps.googleusercontent.com",
+    "project_id": "watertracker-app-434620",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "redirect_uris": ["http://localhost:3000/auth/confirm-oauth"]
+  }
+}

@@ -1,0 +1,40 @@
+tags:
+  - waterRate
+summary: Update waterRate
+operationId: patchWaterRate
+description: 'Update a water rate of user with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json::
+      schema:
+        type: object
+        properties:
+          dailyNorma:
+            description: "User's daily water intake norm"
+            type: number
+            example: 2000
+responses:
+  '200':
+    description: Updated waterRate
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: The daily water rate has been successfully updated!
+            data:
+              type: object
+              $ref: '../../components/schemas/user.yaml'
+  '404':
+    $ref: '../../components/responses/400.yaml'

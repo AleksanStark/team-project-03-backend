@@ -1,0 +1,49 @@
+tags:
+  - auth
+summary: Login user
+operationId: loginUser
+description: 'Login a user and create a session'
+security:
+  - {}
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: "User's email"
+            type: string
+            example: 'test@mail.com'
+          password:
+            description: 'Phone number'
+            type: string
+            example: 'password'
+responses:
+  '200':
+    description: Successfully logged in an user!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in an user!
+            data:
+              type: object
+              $ref: '../../../components/schemas/loggedInObj.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

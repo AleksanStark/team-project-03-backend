@@ -1,0 +1,38 @@
+tags:
+  - water
+summary: Get water data by month
+operationId: getWaterMonthly
+description: 'Get water of user by month operation description'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: month
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+responses:
+  '200':
+    description: 'Success'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Success!
+            data:
+              type: array
+              items:
+                $ref: '../../../../components/schemas/water.yaml'
+  '400':
+    $ref: '../../../../components/responses/400.yaml'

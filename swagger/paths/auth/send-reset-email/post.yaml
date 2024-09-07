@@ -1,0 +1,44 @@
+tags:
+  - auth
+summary: Send a message to update a password
+operationId: sendResetEmail
+description: 'Send an email to reset the password'
+security:
+  - {}
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+        properties:
+          email:
+            description: "User's email"
+            type: string
+            example: 'test@mail.com'
+responses:
+  '200':
+    description: Reset password email was successfully sent!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Email successfully sent!
+            data:
+              type: object
+              $ref: '../../../components/schemas/loggedInObj.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

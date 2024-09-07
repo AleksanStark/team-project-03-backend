@@ -1,0 +1,34 @@
+type: object
+required:
+  - email
+  - _id
+  - password
+  - gender
+  - dailyNorma
+  - createdAt
+  - updatedAt
+properties:
+  name:
+    description: "User's name"
+    type: string
+    example: John Doe
+  email:
+    description: "User's email"
+    type: string
+    example: test@hmail.com
+  gender:
+    description: 'Gender of user'
+    type: string
+    example: 'woman'
+  photo:
+    description: "User's photo link"
+    type: string
+    example: 'somephoto.png'
+  dailyNorma:
+    description: 'Daily norm of water'
+    type: number
+    example: 2000
+  _id:
+    description: "User's id"
+    type: string
+    example: 66b750163beb29c60d215f8c
