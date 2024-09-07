@@ -32,12 +32,12 @@ paths:
   /auth/logout:
     post:
       $ref: ../swagger/paths/auth/logout/post.yaml
-  /auth/send-reset-email:
+  /auth/request-reset-email:
     post:
-      $ref: ../swagger/paths/auth/send-reset-email/post.yaml
-  /auth/reset-pwd:
+      $ref: ../swagger/paths/auth/request-reset-email/post.yaml
+  /auth/reset-password:
     post:
-      $ref: ../swagger/paths/auth/reset-pwd/post.yaml
+      $ref: ../swagger/paths/auth/reset-password/post.yaml
   /user/{id}/info:
     get:
       $ref: ../swagger/paths/user/{id}/info/get.yaml
