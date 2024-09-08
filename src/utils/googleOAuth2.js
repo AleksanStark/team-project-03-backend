@@ -2,7 +2,7 @@ import { OAuth2Client } from 'google-auth-library';
 import path from 'node:path';
 import { readFile } from 'fs/promises';
 
-import { env } from '../../env';
+import { env } from '../utils/.env';
 
 import createHttpError from 'http-errors';
 
