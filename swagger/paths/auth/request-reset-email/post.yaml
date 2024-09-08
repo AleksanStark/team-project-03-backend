@@ -1,7 +1,7 @@
 tags:
   - auth
-summary: Send a message to update a password
-operationId: sendResetEmail
+summary: Send an email to reset the password
+operationId: requestResetEmail
 description: 'Send an email to reset the password'
 security:
   - {}
