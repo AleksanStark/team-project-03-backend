@@ -14,7 +14,7 @@ import {
 } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import { UsersCollection } from '../db/models/user.js';
-import { env } from '../../env/index.js';
+import { env } from '../utils/env.js';
 import { sendEmail } from '../utils/sendMail.js';
 import { getFullNameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
 
