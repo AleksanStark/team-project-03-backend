@@ -1,17 +1,10 @@
 tags:
   - user
-summary: Update user
-operationId: patchUser
-description: 'Update a user with payload operation'
+summary: Update user info
+operationId: patchUserInfo
+description: 'Update a user info with payload operation'
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
 requestBody:
   content:
     multipart/form-data:
@@ -54,6 +47,6 @@ responses:
               example: Successfully updated user data!
             data:
               type: object
-              $ref: ../../../../../components/schemas/user.yaml
+              $ref: ../../../../components/schemas/user.yaml
   '404':
-    $ref: '../../../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/404.yaml'

@@ -18,7 +18,7 @@ tags:
 
 servers:
   - url: http://localhost:3000
-  - url: https://team-project-03.onrender.com
+  - url: https://watertracker-db.onrender.com
 paths:
   /auth/login:
     post:
@@ -38,15 +38,15 @@ paths:
   /auth/reset-password:
     post:
       $ref: ../swagger/paths/auth/reset-password/post.yaml
-  /user/{id}/info:
+  /user/info:
     get:
-      $ref: ../swagger/paths/user/{id}/info/get.yaml
-  /user/{id}/info/photo:
+      $ref: ../swagger/paths/user/info/get.yaml
+  /user/info/photo:
     post:
-      $ref: ../swagger/paths/user/{id}/info/photo/post.yaml
-  /user/{id}/info/update:
+      $ref: ../swagger/paths/user/info/photo/patch.yaml
+  /user/info/update:
     patch:
-      $ref: ../swagger/paths/user/{id}/info/update/patch.yaml
+      $ref: ../swagger/paths/user/info/update/patch.yaml
   /water:
     post:
       $ref: ../swagger/paths/water/post.yaml

@@ -5,12 +5,6 @@ operationId: getUserInfoById
 description: 'Get info about user by his identification'
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: id
-    schema:
-      type: string
-      example: 66b750163beb29c60d215f8c
 responses:
   '200':
     description: Successfully found info about user with id 66b750163beb29c60d215f8c
@@ -36,6 +30,6 @@ responses:
               properties:
                 data:
                   type: object
-                  $ref: '../../../../components/schemas/user.yaml'
+                  $ref: '../../../components/schemas/user.yaml'
   '404':
-    $ref: '../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

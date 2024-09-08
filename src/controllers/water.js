@@ -9,16 +9,21 @@ import {
 
 //додавання нового запису про спожиту воду
 export const addWaterController = async (req, res) => {
-  const userId = req.user._id;
-  const { body } = req;
+  try {
+    const userId = req.user._id;
+    const { body } = req;
 
-  const water = await addWater(userId, body); //додає запис до бази
+    const water = await addWater(userId, body); // додає запис до бази
 
-  res.status(201).json({
-    status: 201,
-    message: 'Successfully created a record of the amount of water consumed!',
-    data: water,
-  });
+    res.status(201).json({
+      status: 201,
+      message: 'Successfully created a record of the amount of water consumed!',
+      data: water,
+    });
+  } catch (error) {
+    console.error('Error adding water record:', error);
+    next(createHttpError(500, 'Failed to add water record.'));
+  }
 };
 
 //оновлення існуючого запису про споживання води
@@ -47,26 +52,30 @@ export const updateWaterController = async (req, res, next) => {
 
 //Видалення запису про споживання води
 export const deleteWaterController = async (req, res, next) => {
-  const userId = req.user._id;
-  const { idRecordWater } = req.params;
-  const water = await deleteWater(userId, idRecordWater);
+  try {
+    const userId = req.user._id;
+    const { idRecordWater } = req.params;
+    const water = await deleteWater(userId, idRecordWater);
 
-  if (!water) {
-    next(
-      createHttpError(
-        404,
-        'The record about consumed amount of water not found',
-      ),
-    );
-    return;
+    if (!water) {
+      return next(
+        createHttpError(
+          404,
+          'The record about consumed amount of water not found',
+        ),
+      );
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    console.error('Error deleting water record:', error);
+    next(createHttpError(500, 'Failed to delete water record.'));
   }
-
-  res.status(204).send();
 };
 
 
 //Отримання даних про споживання води за певний день
-export const fetchDailyController = async (req, res) => {
+export const fetchDailyController = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const date = req.params.date;
@@ -84,16 +93,25 @@ export const fetchDailyController = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.error('Error fetching daily water data:', error);
-    res.status(500).json({ message: 'Server error' });
+     next(createHttpError(500, 'Failed to fetch daily water data.'));
   }
 };
 
 //oтримання даних про споживання води за певний місяць
-export const fetchMonthlyController = async (req, res) => {
-  const userId = req.user._id;
-  const month = req.params.month;
+export const fetchMonthlyController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const month = req.params.month;
 
-  const result = await fetchMonthlyService(userId, month);
+    const result = await fetchMonthlyService(userId, month);
 
-  res.status(200).json(result);
+    if (!result || result.dailyResults.length === 0) {
+      return res.status(200).json({ month, data: [] }); // Повертає порожній масив, якщо даних немає
+    }
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error fetching monthly water data:', error);
+    next(createHttpError(500, 'Failed to fetch monthly water data.'));
+  }
 };
