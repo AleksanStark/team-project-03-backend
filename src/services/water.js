@@ -112,9 +112,10 @@ export const fetchMonthlyService = async (userId, dateString) => {
   let totalMonthlyConsumption = 0;
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const dayKey = `${year}-${month.padStart(2, '0')}-${day
-      .toString()
-      .padStart(2, '0')}`;
+    const dayKey = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    // const dayKey = `${year}-${month.padStart(2, '0')}-${day
+    //   .toString()
+    //   .padStart(2, '0')}`;
     dailyConsumptionMap[dayKey] = 0;
     recordsCountMap[dayKey] = 0;
   }
