@@ -57,3 +57,5 @@ responses:
               $ref: '../../../components/schemas/water.yaml'
   '404':
     $ref: '../../../components/responses/404.yaml'
+  '500':
+    description: Internal server error

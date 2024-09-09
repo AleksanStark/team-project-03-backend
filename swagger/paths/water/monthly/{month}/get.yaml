@@ -9,12 +9,13 @@ parameters:
   - in: path
     name: month
     required: true
+    description: Month for receiving data (YYYY-MM format)
     schema:
       type: string
-      example: '65ca67e7ae7f10c88b598384'
+      example: '2023-09'
 responses:
   '200':
-    description: 'Success'
+    description: 'Data on water consumption for the month'
     content:
       application/json:
         schema:
@@ -27,12 +28,19 @@ responses:
             status:
               type: integer
               example: 201
-            message:
+            month:
               type: string
-              example: Success!
+              description: The month for which the data is returned
+            totalMonthlyConsumption:
+              type: string
+              description: The total amount of water consumed per month
             data:
               type: array
               items:
                 $ref: '../../../../components/schemas/water.yaml'
   '400':
     $ref: '../../../../components/responses/400.yaml'
+  '404':
+    description: No data found
+  '500':
+    description: Internal server error

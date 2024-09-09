@@ -20,3 +20,19 @@ properties:
     description: 'Id of water log'
     type: string
     example: 66b750163beb29c60d215f8c
+  totalConsumptionLiters:
+    type: string
+    description: Total amount of water consumed per day (in liters)
+    example: '2.50'
+  consumptionPercentage:
+    type: string
+    description: Percentage of the daily norm
+    example: '85.23'
+  recordsCount:
+    type: number
+    description: Number of entries per day
+    example: 3
+  dailyNormaLiters:
+    type: string
+    description: Daily rate of water in liters
+    example: '3.00'
