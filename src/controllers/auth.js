@@ -49,7 +49,7 @@ export const loginUserController = async (req, res) => {
         name: user.name,
         gender: user.gender,
         dailyNorma: user.dailyNorma,
-        avatarUrl: user.photo,
+        photo: user.photo, //не було
       },
     },
   });
