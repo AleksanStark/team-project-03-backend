@@ -11,7 +11,14 @@
       "https://aleksanstark.github.io/team-project-03/",
       "http://localhost:3000/team-project-03/",
       "https://aleksanstark.github.io/team-project-03/signup",
-      "http://localhost:3000/team-project-03/signup"
+      "http://localhost:3000/team-project-03/signup",
+      "http://localhost:3000/",
+      "https://aleksanstark.github.io/team-project"
+    ],
+    "javascript_origins": [
+      "https://watertracker-db.onrender.com",
+      "http://localhost:3000",
+      "https://aleksanstark.github.io"
     ]
   }
 }
