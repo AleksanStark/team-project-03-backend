@@ -16,9 +16,9 @@ requestBody:
           - userId
         properties:
           date:
-            description: 'Date of water intake record'
+            description: 'Date of water consumption (in YYYY-MM-DD format)'
             type: string
-            example: 2024-05-08T16:12:14
+            example: '2024-09-01'
           volume:
             description: 'Volume of water intake record'
             type: number
@@ -54,3 +54,5 @@ responses:
               $ref: '../../components/schemas/water.yaml'
   '400':
     $ref: '../../components/responses/400.yaml'
+  '500':
+    description: Internal server error
