@@ -7,6 +7,7 @@ import {
 } from '../services/auth.js';
 import { ONE_DAY } from '../constants/index.js';
 import { loginOrSignupWithGoogle } from '../services/auth.js';
+import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -49,7 +50,7 @@ export const loginUserController = async (req, res) => {
         name: user.name,
         gender: user.gender,
         dailyNorma: user.dailyNorma,
-        photo: user.photo, //не було
+        photo: user.photo,
       },
     },
   });
