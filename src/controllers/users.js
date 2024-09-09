@@ -4,6 +4,16 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 
+export const getUserInfoController = async (req, res) => {
+  const user = req.user;
+
+  res.json({
+    status: 200,
+    message: 'Successfully found user info!',
+    data: user,
+  });
+};
+
 export const getUserInfoByIdController = async (req, res, next) => {
   const { userId } = req.params;
   // const user = await getUserInfoById(userId);
