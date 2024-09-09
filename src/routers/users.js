@@ -3,6 +3,7 @@ import {
   getUserInfoByIdController,
   createUserController,
   patchUserController,
+  getUserInfoController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -14,6 +15,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 const router = Router();
 
 router.use(authenticate);
+router.get('/info-user', ctrlWrapper(getUserInfoController));
 
 router.get('/info', ctrlWrapper(getUserInfoByIdController));
 
