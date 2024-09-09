@@ -4,6 +4,14 @@
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "redirect_uris": ["https://watertracker-db.onrender.com/auth/confirm-oauth"]
+    "redirect_uris": [
+      "https://watertracker-db.onrender.com/auth/confirm-oauth",
+      "https://aleksanstark.github.io/team-project-03/signin",
+      "http://localhost:3000/team-project-03/signin",
+      "https://aleksanstark.github.io/team-project-03/",
+      "http://localhost:3000/team-project-03/",
+      "https://aleksanstark.github.io/team-project-03/signup",
+      "http://localhost:3000/team-project-03/signup"
+    ]
   }
 }
