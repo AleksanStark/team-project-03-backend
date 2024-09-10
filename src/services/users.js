@@ -25,11 +25,11 @@ export const updateUser = async (userId, payload, options = {}) => {
       ...options,
     },
   );
-
   if (!rawResult || !rawResult.value) return null;
 
   return {
     user: rawResult.value,
+    password: payload.password,
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
 };
