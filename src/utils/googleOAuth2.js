@@ -25,13 +25,14 @@ export const generateAuthUrl = () =>
   });
 
 export const validateCode = async (code) => {
-  const response = await googleOAuthClient.getToken(code);
-  if (!response.tokens.id_token) throw createHttpError(401, 'Unauthorized');
+     const response = await googleOAuthClient.getToken(code);
+     if (response.tokens.id_token === 'undefined')
+    throw createHttpError(401, 'Unauthorized');
 
-  const ticket = await googleOAuthClient.verifyIdToken({
-    idToken: response.tokens.id_token,
-  });
-  return ticket;
+     const ticket = await googleOAuthClient.verifyIdToken({
+       idToken: response.tokens.id_token,
+     });
+     return ticket;
 };
 
 export const getFullNameFromGoogleTokenPayload = (payload) => {
@@ -44,3 +45,5 @@ export const getFullNameFromGoogleTokenPayload = (payload) => {
 
   return fullName;
 };
+
+
