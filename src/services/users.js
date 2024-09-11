@@ -1,4 +1,6 @@
+import bcrypt from 'bcrypt';
 import { UsersCollection } from '../db/models/user.js';
+import createHttpError from 'http-errors';
 
 export const getUserInfo = async (userId) => {
   const user = await UsersCollection.findById(userId);
@@ -32,4 +34,19 @@ export const updateUser = async (userId, payload, options = {}) => {
     password: payload.password,
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
+};
+
+export const updatePassword = async (userId, oldPassword, newPassword) => {
+  const user = await UsersCollection.findById(userId);
+  console.log(userId);
+
+  if (!user) throw createHttpError(404, 'User not found');
+
+  const isMatch = await bcrypt.compare(oldPassword, user.password);
+  if (!isMatch) throw createHttpError(401, 'Current password is incorrect');
+
+  const encryptedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  user.password = encryptedNewPassword;
+  await user.save();
 };

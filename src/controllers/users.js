@@ -1,4 +1,9 @@
-import { getUserInfoById, updateUser, createUser } from '../services/users.js';
+import {
+  getUserInfoById,
+  updateUser,
+  createUser,
+  updatePassword,
+} from '../services/users.js';
 import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
@@ -7,7 +12,14 @@ import { env } from '../utils/env.js';
 
 export const getUserInfoController = async (req, res) => {
   const user = req.user;
-
+  // тут можна добавити {
+  //   email: user.email,
+  //   name: user.name,
+  //   password: user.password,
+  //   gender: user.gender,
+  //   dailyNorma: user.dailyNorma,
+  //   photo: user.photo,
+  // }, і прибрати user в auth/login
   res.json({
     status: 200,
     message: 'Successfully found user info!',
@@ -103,5 +115,24 @@ export const updateDailyNormaController = async (req, res) => {
   } catch (error) {
     console.error('Помилка при оновленні денної норми води:', error);
     res.status(400).json({ message: error.message });
+  }
+};
+
+//==========================
+export const updatePasswordController = async (req, res) => {
+  const userId = req.user._id;
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    await updatePassword(userId, oldPassword, newPassword);
+    res.status(200).json({
+      status: 200,
+      message: 'Password updated successfully',
+    });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      status: error.status || 500,
+      message: error.message,
+    });
   }
 };
