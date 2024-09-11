@@ -106,74 +106,6 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   });
 };
 
-// export const requestResetToken = async (email) => {
-//   const user = await UsersCollection.findOne({ email });
-//   if (!user) {
-//     throw createHttpError(404, 'User not found');
-//   }
-//   const resetToken = jwt.sign(
-//     {
-//       sub: user._id,
-//       email,
-//     },
-//     env('JWT_SECRET'),
-//     {
-//       expiresIn: '15m',
-//     },
-//   );
-
-//   return resetToken;
-// };
-
-// const resetPasswordTemplatePath = path.join(
-//   TEMPLATES_DIR,
-//   'reset-password-email.html',
-// );
-
-// const templateSource = (
-//   await fs.readFile(resetPasswordTemplatePath)
-// ).toString();
-
-// const template = handlebars.compile(templateSource);
-// const html = template({
-//   name: user.name,
-//   link: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,
-// });
-
-// await sendEmail({
-//   from: env(SMTP.SMTP_FROM),
-//   to: email,
-//   subject: 'Reset your password',
-//   html,
-// });
-
-// export const resetPassword = async (payload) => {
-//   try {
-//     const entries = jwt.verify(payload.token, env('JWT_SECRET'));
-//     const userId = entries.sub;
-//     const user = await UsersCollection.findById(userId);
-
-//     if (!user) {
-//       throw createHttpError(404, 'User not found');
-//     }
-
-//     const encryptedPassword = await bcrypt.hash(payload.password, 10);
-//     user.password = encryptedPassword;
-//     await user.save();
-//     return { message: 'Password successfully updated' };
-//   } catch (error) {
-//     if (error.name === 'TokenExpiredError') {
-//       throw createHttpError(400, 'Reset token has expired');
-//     }
-//     if (error.name === 'JsonWebTokenError') {
-//       throw createHttpError(400, 'Invalid token');
-//     }
-//     // Логуйте неочікувані помилки для налагодження
-//     console.error('Error resetting password:', error);
-//     throw createHttpError(500, 'Internal server error');
-//   }
-// };
-
 export const requestResetToken = async (email) => {
   const user = await UsersCollection.findOne({ email });
   if (!user) {
@@ -202,7 +134,7 @@ export const requestResetToken = async (email) => {
   const template = handlebars.compile(templateSource);
   const html = template({
     name: user.name,
-    link: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,
+    link: `https://aleksanstark.github.io/team-project-03/auth/reset-password?token=${resetToken}`,
   });
 
   await sendEmail({
