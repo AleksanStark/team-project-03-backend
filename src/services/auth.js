@@ -243,7 +243,7 @@ export const resetPassword = async (payload) => {
 export const loginOrSignupWithGoogle = async (code) => {
   const loginTicket = await validateCode(code);
   const payload = loginTicket.getPayload();
-  if (!payload) throw createHttpError(401);
+  if (payload === 'undefined') throw createHttpError(401);
 
   let user = await UsersCollection.findOne({ email: payload.email });
   if (!user) {
