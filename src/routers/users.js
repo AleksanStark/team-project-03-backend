@@ -4,10 +4,15 @@ import {
   createUserController,
   patchUserController,
   getUserInfoController,
+  updatePasswordController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { updateUserSchema, createUserSchema } from '../validation/users.js';
+import {
+  updateUserSchema,
+  createUserSchema,
+  updatePasswordSchema,
+} from '../validation/users.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { upload } from '../middlewares/multer.js';
 import { authenticate } from '../middlewares/authenticate.js';
@@ -32,5 +37,9 @@ router.patch(
   validateBody(updateUserSchema),
   ctrlWrapper(patchUserController),
 );
-
+router.patch(
+  '/update-password',
+  validateBody(updatePasswordSchema),
+  ctrlWrapper(updatePasswordController),
+);
 export default router;

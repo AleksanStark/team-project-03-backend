@@ -30,3 +30,17 @@ export const updateUserSchema = Joi.object({
     'string.max': 'Password should have at most {#limit} characters',
   }),
 });
+export const updatePasswordSchema = Joi.object({
+  oldPassword: Joi.string().min(8).max(64).required().messages({
+    'string.base': 'Old password should be a string',
+    'string.min': 'Old password should have at least {#limit} characters',
+    'string.max': 'Old password should have at most {#limit} characters',
+    'any.required': 'Old password is required',
+  }),
+  newPassword: Joi.string().min(8).max(64).required().messages({
+    'string.base': 'New password should be a string',
+    'string.min': 'New password should have at least {#limit} characters',
+    'string.max': 'New password should have at most {#limit} characters',
+    'any.required': 'New password is required',
+  }),
+});
