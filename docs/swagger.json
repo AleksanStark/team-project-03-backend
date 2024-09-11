@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://team-project-03.onrender.com"
+      "url": "https://watertracker-db.onrender.com"
     }
   ],
   "tags": [
@@ -415,7 +415,7 @@
         }
       }
     },
-    "/user/{id}/info": {
+    "/user/info": {
       "get": {
         "tags": [
           "user"
@@ -426,16 +426,6 @@
         "security": [
           {
             "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "type": "string",
-              "example": "66b750163beb29c60d215f8c"
-            }
           }
         ],
         "responses": {
@@ -482,7 +472,7 @@
         }
       }
     },
-    "/user/{id}/info/photo": {
+    "/user/info/photo": {
       "post": {
         "tags": [
           "user"
@@ -493,17 +483,6 @@
         "security": [
           {
             "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
           }
         ],
         "requestBody": {
@@ -558,28 +537,17 @@
         }
       }
     },
-    "/user/{id}/info/update": {
+    "/user/info/update": {
       "patch": {
         "tags": [
           "user"
         ],
-        "summary": "Update user",
-        "operationId": "patchUser",
-        "description": "Update a user with payload operation",
+        "summary": "Update user info",
+        "operationId": "patchUserInfo",
+        "description": "Update a user info with payload operation",
         "security": [
           {
             "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
           }
         ],
         "requestBody": {
@@ -677,9 +645,9 @@
                 ],
                 "properties": {
                   "date": {
-                    "description": "Date of water intake record",
+                    "description": "Date of water consumption (in YYYY-MM-DD format)",
                     "type": "string",
-                    "example": "2024-05-08T16:12:14"
+                    "example": "2024-09-01"
                   },
                   "volume": {
                     "description": "Volume of water intake record",
@@ -733,6 +701,9 @@
           },
           "400": {
             "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -824,6 +795,9 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       },
@@ -851,11 +825,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully deleted water log"
+          "204": {
+            "description": "Record deleted successfully"
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -878,15 +855,16 @@
             "in": "path",
             "name": "date",
             "required": true,
+            "description": "Date to receive data (YYYY-MM-DD format)",
             "schema": {
               "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
+              "example": "2024-09-01"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Data on daily water consumption",
             "content": {
               "application/json": {
                 "schema": {
@@ -897,13 +875,17 @@
                     "data"
                   ],
                   "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
+                    "dateOrMonth": {
                       "type": "string",
-                      "example": "Success!"
+                      "description": "Date for which data is returned"
+                    },
+                    "totalConsumption": {
+                      "type": "number",
+                      "description": "The total amount of water consumed"
+                    },
+                    "percentageOfDailyIntake": {
+                      "type": "string",
+                      "description": "Percentage of the daily norm"
                     },
                     "data": {
                       "type": "array",
@@ -918,6 +900,12 @@
           },
           "400": {
             "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "description": "No data found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -940,15 +928,16 @@
             "in": "path",
             "name": "month",
             "required": true,
+            "description": "Month for receiving data (YYYY-MM format)",
             "schema": {
               "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
+              "example": "2023-09"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Data on water consumption for the month",
             "content": {
               "application/json": {
                 "schema": {
@@ -963,9 +952,13 @@
                       "type": "integer",
                       "example": 201
                     },
-                    "message": {
+                    "month": {
                       "type": "string",
-                      "example": "Success!"
+                      "description": "The month for which the data is returned"
+                    },
+                    "totalMonthlyConsumption": {
+                      "type": "string",
+                      "description": "The total amount of water consumed per month"
                     },
                     "data": {
                       "type": "array",
@@ -980,6 +973,12 @@
           },
           "400": {
             "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "description": "No data found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1142,6 +1141,26 @@
             "description": "Id of water log",
             "type": "string",
             "example": "66b750163beb29c60d215f8c"
+          },
+          "totalConsumptionLiters": {
+            "type": "string",
+            "description": "Total amount of water consumed per day (in liters)",
+            "example": "2.50"
+          },
+          "consumptionPercentage": {
+            "type": "string",
+            "description": "Percentage of the daily norm",
+            "example": "85.23"
+          },
+          "recordsCount": {
+            "type": "number",
+            "description": "Number of entries per day",
+            "example": 3
+          },
+          "dailyNormaLiters": {
+            "type": "string",
+            "description": "Daily rate of water in liters",
+            "example": "3.00"
           }
         }
       }
