@@ -20,7 +20,6 @@ export const registerUserController = async (req, res) => {
       name: user.name,
       gender: user.gender,
       dailyNorma: user.dailyNorma,
-      password: user.password,
       _id: user._id,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
@@ -46,14 +45,6 @@ export const loginUserController = async (req, res) => {
     data: {
       _id: session._id,
       accessToken: session.accessToken,
-      user: {
-        email: user.email,
-        name: user.name,
-        password: user.password,
-        gender: user.gender,
-        dailyNorma: user.dailyNorma,
-        photo: user.photo,
-      },
     },
   });
 };
