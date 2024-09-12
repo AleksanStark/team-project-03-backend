@@ -7,7 +7,7 @@ export const waterIntakeSchema = Joi.object({
     'number.max': 'Amount of water should have at most {#limit} ml',
     'any.required': '{#label} is required',
   }),
-  date: Joi.date().required().messages({
+  date: Joi.string().required().messages({
     'date.base': 'Date must be valid',
     'any.required': 'Date is required',
   }),
@@ -18,7 +18,7 @@ export const updateWaterIntakeSchema = Joi.object({
     'number.min': 'Amount of water should have at least {#limit} ml',
     'number.max': 'Amount of water should have at most {#limit} ml',
   }),
-  date: Joi.date(),
+  date: Joi.string(),
 });
 
 export const dayNormalWaterSchema = Joi.object({

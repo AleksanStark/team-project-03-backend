@@ -32,6 +32,7 @@ export const deleteWater = async (userId, waterId) => {
 export const fetchDailyService = async (userId, dateString) => {
   if (!validateDate(dateString)) {
     //перевірка дати
+    console.error('Invalid date format:', dateString);
     throw new Error('Invalid date format');
   }
   //генерується початкова і кінцева дата для запиту даних
@@ -39,7 +40,6 @@ export const fetchDailyService = async (userId, dateString) => {
   const startDate = new Date(`${year}-${month}-${day}T00:00:00Z`);
   const endDate = new Date(startDate);
   endDate.setUTCDate(endDate.getUTCDate() + 1); //охоплення всього дня
-
   try {
     //отримання даних
     const dailyConsumption = await WatersCollection.find({
@@ -57,6 +57,7 @@ export const fetchDailyService = async (userId, dateString) => {
     if (!user) {
       throw new Error('User not found');
     }
+
     //обчислює загальну кількість випитої води
     const totalConsumption = dailyConsumption.reduce(
       (total, record) => total + record.volume,
@@ -106,16 +107,15 @@ export const fetchMonthlyService = async (userId, dateString) => {
   const dailyNormaLiters = (dailyNorma / 1000).toFixed(2); // Конвертуємо в літри
 
   // Створюємо об'єкт для зберігання споживання води за кожен день
-  const dailyConsumptionMap = {}; // Зберігає обсяги споживання води
+  const dailyConsumptionMap = {};
   const recordsCountMap = {}; // Зберігає кількість записів
   const daysInMonth = new Date(year, month, 0).getDate();
   let totalMonthlyConsumption = 0;
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const dayKey = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    // const dayKey = `${year}-${month.padStart(2, '0')}-${day
-    //   .toString()
-    //   .padStart(2, '0')}`;
+    const dayKey = `${year}-${month.padStart(2, '0')}-${day
+      .toString()
+      .padStart(2, '0')}`;
     dailyConsumptionMap[dayKey] = 0;
     recordsCountMap[dayKey] = 0;
   }
@@ -130,24 +130,23 @@ export const fetchMonthlyService = async (userId, dateString) => {
 
   // Формуємо масив з результатами
   const dailyResults = [];
-   for (const [date, totalConsumption] of Object.entries(dailyConsumptionMap)) {
-     const formattedDate = reformDate(date); // Форматуємо дату
-     const consumptionPercentage = (totalConsumption / dailyNorma) * 100; // Обчислюємо відсоток від норми
-     const recordsCount = recordsCountMap[date]; // Кількість записів
-     dailyResults.push({
-       date: formattedDate, // Дата у форматі "день, місяць"
-       totalConsumptionLiters: (totalConsumption / 1000).toFixed(2), // Конвертуємо об'єм у літри
-       consumptionPercentage: consumptionPercentage.toFixed(2), // Відсоток споживання води
-       recordsCount, // Кількість записів за день
-       dailyNormaLiters, // Денна норма у літрах
-     });
-   }
-
+  for (const [date, totalConsumption] of Object.entries(dailyConsumptionMap)) {
+    const consumptionPercentage = (totalConsumption / dailyNorma) * 100; // Обчислюємо відсоток від норми
+    const recordsCount = recordsCountMap[date]; // Кількість записів
+    dailyResults.push({
+      date, // Дата у форматі "день, місяць"
+      totalConsumptionLiters: (totalConsumption / 1000).toFixed(2), // Конвертуємо об'єм у літри
+      consumptionPercentage, // Відсоток споживання води
+      recordsCount, // Кількість записів за день
+      dailyNormaLiters, // Денна норма у літрах
+    });
+  }
+  //totalConsumption,
+  //consumptionPercentage,
   return {
     month: dateString,
-    totalMonthlyConsumption: (totalMonthlyConsumption / 1000).toFixed(2), // Загальне споживання за місяць у літрах
+    totalMonthlyConsumption,
     dailyResults,
   };
 };
-
 //код дозволяє керувати даними про споживання води, а також обчислювати щоденне та щомісячне споживання води
