@@ -131,18 +131,18 @@ export const fetchMonthlyService = async (userId, dateString) => {
   // Формуємо масив з результатами
   const dailyResults = [];
   for (const [date, totalConsumption] of Object.entries(dailyConsumptionMap)) {
+    const formattedDate = reformDate(date); // Форматуємо дату
     const consumptionPercentage = (totalConsumption / dailyNorma) * 100; // Обчислюємо відсоток від норми
     const recordsCount = recordsCountMap[date]; // Кількість записів
     dailyResults.push({
-      date, // Дата у форматі "день, місяць"
+      date: formattedDate, // Дата у форматі "день, місяць"
       totalConsumptionLiters: (totalConsumption / 1000).toFixed(2), // Конвертуємо об'єм у літри
       consumptionPercentage, // Відсоток споживання води
       recordsCount, // Кількість записів за день
       dailyNormaLiters, // Денна норма у літрах
     });
   }
-  //totalConsumption,
-  //consumptionPercentage,
+
   return {
     month: dateString,
     totalMonthlyConsumption,
