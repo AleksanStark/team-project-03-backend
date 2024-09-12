@@ -4,7 +4,6 @@ import {
   createUser,
   updatePassword,
 } from '../services/users.js';
-import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
@@ -12,6 +11,7 @@ import { env } from '../utils/env.js';
 
 export const getUserInfoController = async (req, res) => {
   const user = req.user;
+
   res.json({
     status: 200,
     message: 'Successfully found user info!',
@@ -56,9 +56,7 @@ export const createUserController = async (req, res) => {
 
 export const patchUserController = async (req, res, next) => {
   const photo = req.file;
-  const { password } = req.body;
   let photoUrl;
-  let hashedPassword;
 
   if (photo) {
     if (env('ENABLE_CLOUDINARY') === 'true') {
@@ -68,14 +66,9 @@ export const patchUserController = async (req, res, next) => {
     }
   }
 
-  if (password) {
-    hashedPassword = await bcrypt.hash(password, 10);
-  }
-
   const result = await updateUser(req.user._id, {
     ...req.body,
     photo: photoUrl,
-    password: hashedPassword,
   });
 
   if (!result) {
@@ -86,10 +79,7 @@ export const patchUserController = async (req, res, next) => {
   res.json({
     status: 200,
     message: `Successfully updated user data!`,
-    data: {
-      user: result.user,
-      password: result.password,
-    },
+    data: result.user,
   });
 };
 

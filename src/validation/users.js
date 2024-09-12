@@ -24,11 +24,6 @@ export const updateUserSchema = Joi.object({
   email: Joi.string().email(),
   gender: Joi.string().valid('woman', 'man'),
   photo: Joi.string(),
-  password: Joi.string().min(8).max(64).messages({
-    'string.base': 'Password should be a string',
-    'string.min': 'Password should have at least{#limit} characters',
-    'string.max': 'Password should have at most {#limit} characters',
-  }),
 });
 export const updatePasswordSchema = Joi.object({
   oldPassword: Joi.string().min(8).max(64).required().messages({

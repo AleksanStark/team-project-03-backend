@@ -20,7 +20,6 @@ export const registerUserController = async (req, res) => {
       name: user.name,
       gender: user.gender,
       dailyNorma: user.dailyNorma,
-      password: user.password,
       _id: user._id,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
