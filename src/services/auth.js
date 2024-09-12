@@ -134,7 +134,7 @@ export const requestResetToken = async (email) => {
   const template = handlebars.compile(templateSource);
   const html = template({
     name: user.name,
-    link: `https://aleksanstark.github.io/team-project-03/auth/reset-password?token=${resetToken}`,
+    link: `http://andriibilous.com/auth/reset-password?token=${resetToken}`,
   });
 
   await sendEmail({

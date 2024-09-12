@@ -12,14 +12,6 @@ import { env } from '../utils/env.js';
 
 export const getUserInfoController = async (req, res) => {
   const user = req.user;
-  // тут можна добавити {
-  //   email: user.email,
-  //   name: user.name,
-  //   password: user.password,
-  //   gender: user.gender,
-  //   dailyNorma: user.dailyNorma,
-  //   photo: user.photo,
-  // }, і прибрати user в auth/login
   res.json({
     status: 200,
     message: 'Successfully found user info!',
