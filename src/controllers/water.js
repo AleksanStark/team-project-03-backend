@@ -50,27 +50,22 @@ export const updateWaterController = async (req, res, next) => {
   });
 };
 
-//Видалення запису про споживання води
 export const deleteWaterController = async (req, res, next) => {
-  try {
-    const userId = req.user._id;
-    const { idRecordWater } = req.params;
-    const water = await deleteWater(userId, idRecordWater);
+  const userId = req.user._id;
+  const { id: waterId } = req.params;
+  const water = await deleteWater(userId, waterId);
 
-    if (!water) {
-      return next(
-        createHttpError(
-          404,
-          'The record about consumed amount of water not found',
-        ),
-      );
-    }
-
-    res.status(204).send();
-  } catch (error) {
-    console.error('Error deleting water record:', error);
-    next(createHttpError(500, 'Failed to delete water record.'));
+  if (!water) {
+    next(
+      createHttpError(
+        404,
+        'The record about consumed amount of water not found',
+      ),
+    );
+    return;
   }
+
+  res.status(204).send();
 };
 
 
