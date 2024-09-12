@@ -46,14 +46,6 @@ export const loginUserController = async (req, res) => {
     data: {
       _id: session._id,
       accessToken: session.accessToken,
-      user: {
-        email: user.email,
-        name: user.name,
-        password: user.password,
-        gender: user.gender,
-        dailyNorma: user.dailyNorma,
-        photo: user.photo,
-      },
     },
   });
 };
