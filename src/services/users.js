@@ -31,7 +31,6 @@ export const updateUser = async (userId, payload, options = {}) => {
 
   return {
     user: rawResult.value,
-    password: payload.password,
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
 };
